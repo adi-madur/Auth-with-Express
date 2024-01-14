@@ -57,6 +57,31 @@ const signup = async (req, res, next) => {
 
 }
 
+const signin = async (req, res) => {
+    const { email, password } = req.body;
+
+    if(!email || !password){
+        return res.status(400).json({
+            success: false,
+            message: "Every field is mandatory"
+        })
+    }
+
+    const user = await userModel
+        .findOne({email})
+        .select('+password') //--> Also selects password from entire userSchema's information
+    
+    if(!user || (user.password !== password)) {
+        return res.status(400).json({
+            success: false,
+            message: "Invalid Credentials"
+        })
+    }
+
+}
+
+
 module.exports = {
-    signup
+    signup,
+    signin
 }
