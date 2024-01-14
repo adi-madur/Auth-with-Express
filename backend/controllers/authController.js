@@ -67,16 +67,43 @@ const signin = async (req, res) => {
         })
     }
 
-    const user = await userModel
+    try {
+        const user = await userModel
         .findOne({email})
         .select('+password') //--> Also selects password from entire userSchema's information
     
-    if(!user || (user.password !== password)) {
+        if(!user || (user.password !== password)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid Credentials"
+            })
+        }
+
+        // Generating Token for a User
+        const token = user.jwtToken();
+        // Since we don't need password now, we'll clear it
+        user.password = undefined;
+
+        // Creating Cookie as Object
+        const cookieOption = {
+            maxAge: 24 * 60 * 60 * 1000, //--> 24 h in milliseconds
+            httpOnly: true,
+        }
+        
+        // Now putting the cookieOption in Cookies
+        res.cookie("token", token, cookieOption); //--> The 3 fields are Name, token and CookieObject
+        res.status(200).json({
+            success:true,
+            data: user
+        })
+    } catch (end) {
         return res.status(400).json({
             success: false,
-            message: "Invalid Credentials"
+            message: e.message
         })
     }
+
+    
 
 }
 
