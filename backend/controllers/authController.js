@@ -70,7 +70,8 @@ const signin = async (req, res) => {
     try {
         const user = await userModel
         .findOne({email})
-        .select('+password') //--> Also selects password from entire userSchema's information
+        .select('+password') //--> Also selects password from entire userSchema's information.
+        // Because password doesn't gets selected defaultly due to `select: disable` in Schema
     
         if(!user || (user.password !== password)) {
             return res.status(400).json({
@@ -107,8 +108,25 @@ const signin = async (req, res) => {
 
 }
 
+const getUser = async (req, res) => {
+    const userId = req.user.id;
+
+    try {
+        const user = await userModel.findById(userId);
+        return res.status(200).json({
+            success: true,
+            data: user
+        })
+    } catch (e) {
+        return res.status(400).json({
+            success:false,
+            message: e.message
+        })
+    }
+}
 
 module.exports = {
     signup,
-    signin
+    signin,
+    getUser
 }
