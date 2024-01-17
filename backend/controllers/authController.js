@@ -127,7 +127,7 @@ const getUser = async (req, res) => {
 
 // To Logout, the user must be first logged in. Hence the flow goes to `jwtAuth` middleware first
 // And the method to log out is just deleting the token / cookie.
-const logout = () => {
+const logout = (req, res) => {
     try {
         const cookieOption= {
             expires: new Date(),
