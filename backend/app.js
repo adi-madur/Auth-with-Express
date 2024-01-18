@@ -29,3 +29,9 @@ app.use('/', (req, res)=>{
 module.exports = app;
 
 // ENV file should include:
+/* 
+PORT
+MONGODB_URL
+SECRET
+CLIENT_URL
+*/
