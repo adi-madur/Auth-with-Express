@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const JWT = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 const userSchema = new Schema({
     name:{
@@ -33,8 +34,20 @@ const userSchema = new Schema({
     timestamps: true, // --> This will add `createdAt` and `updatedAt` properties of Schema.
 })
 
-// Mongoose offers to create custom methods.
+// Instead of modifying existing controller to encrypt the password, we create a method os Schema directly
+userSchema.pre('save', async function(next){ //--> it runs previous to whenever the save function (userSchema's save) is used
+    if(!this.isModified('password')){ //--> If password isn't modified then next()
+        return next();
+    }
 
+    // If password is modified then encrypt password in 10 rounds/salt
+    this.password = await bcrypt.hash(this.password, 10);
+    return next();
+
+})
+
+
+// Mongoose offers to create custom methods.
 userSchema.methods = {
     // JWT Token has 3 parts. Info, Secret Key, validity of Token
     jwtToken() {

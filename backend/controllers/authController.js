@@ -1,6 +1,6 @@
 const userModel = require("../models/userSchema");
 const emailValidator = require('email-validator');
-
+const bcrypt = require('bcrypt');
 
 const signup = async (req, res, next) => {
     const { name, email, password, confirmPassword } = req.body;
@@ -73,7 +73,7 @@ const signin = async (req, res) => {
         .select('+password') //--> Also selects password from entire userSchema's information.
         // Because password doesn't gets selected defaultly due to `select: disable` in Schema
     
-        if(!user || (user.password !== password)) {
+        if( !user || !(await bcrypt.compare(password, user.password)) ) {
             return res.status(400).json({
                 success: false,
                 message: "Invalid Credentials"
