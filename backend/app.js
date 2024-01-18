@@ -35,3 +35,11 @@ MONGODB_URL
 SECRET
 CLIENT_URL
 */
+
+// Explaination
+/*
+PORT refers to which port the backend should run. Is extremely mandatory to put properly cause all requests need it.
+MONGODB_URL refers to the connection string of the MONGO DB database (ATLAS) with username and password
+SECRET refers to the secret key used for encryption
+CLIENT_URL refers to the url of the front-end that will request for this back-end
+*/ 
