@@ -3,7 +3,7 @@ const app = express();
 const authRoute = require('./routes/authRoute.js');
 const connectToDatabase = require('./config/databaseConfig.js');
 const cookieParser = require('cookie-parser');
-const cors = require('cors');
+const cors = require('cors'); // --> Importing CORS for conversing Front End and Back End
 
 connectToDatabase();
 
