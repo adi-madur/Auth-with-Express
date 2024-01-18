@@ -41,7 +41,7 @@ userSchema.pre('save', async function(next){ //--> it runs previous to whenever 
     }
 
     // If password is modified then encrypt password in 10 rounds/salt
-    this.password = await bcrypt.hash(this.password, 10);
+    this.password = bcrypt.hash(this.password, 10);
     return next();
 
 })

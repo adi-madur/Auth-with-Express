@@ -73,7 +73,7 @@ const signin = async (req, res) => {
         .select('+password') //--> Also selects password from entire userSchema's information.
         // Because password doesn't gets selected defaultly due to `select: disable` in Schema
     
-        if( !user || !(await bcrypt.compare(password, user.password)) ) {
+        if(!user || !(bcrypt.compare(password, user.password) )) {
             return res.status(400).json({
                 success: false,
                 message: "Invalid Credentials"
