@@ -17,10 +17,7 @@ function App() {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route
-          path="/reset-password/:resetPasswordToken"
-          element={<ResetPassword />}
-        />
+        <Route path="/reset-password/:resetPasswordToken" element={<ResetPassword />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>
