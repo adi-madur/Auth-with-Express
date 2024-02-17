@@ -12,6 +12,7 @@ function Home() {
 
   useEffect(() => {
     getUser();
+    // eslint-disable-next-line
   }, []);
 
   async function getUser() {

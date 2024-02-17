@@ -42,7 +42,7 @@ const signup = async (req, res, next) => {
         })
     } catch (e) {
 
-        if (e.code === 11000) { //--> 11000 code is a error code for duplicate key. i.e same email
+        if (e.code === 11000) { //--> 11000 code is a error code for duplicate key. i.e same email. Here it'll work because only email attribute is set to UNIQUE.
             return res.status(400).json({
                 success: false,
                 message: "Account already exists with this email"
