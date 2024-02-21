@@ -38,6 +38,7 @@ const signup = async (req, res, next) => {
 
         return res.status(200).json({
             success: true,
+            message: "User Signed up successfully",
             data: result
         })
     } catch (e) {
@@ -95,6 +96,7 @@ const signin = async (req, res) => {
         res.cookie("token", token, cookieOption); //--> The 3 fields are Name, token and CookieObject
         res.status(200).json({
             success:true,
+            message: "User Logged in successfully",
             data: user
         })
     } catch (end) {
@@ -115,6 +117,7 @@ const getUser = async (req, res) => {
         const user = await userModel.findById(userId);
         return res.status(200).json({
             success: true,
+            message: "User details fetched successfully",
             data: user
         })
     } catch (e) {
